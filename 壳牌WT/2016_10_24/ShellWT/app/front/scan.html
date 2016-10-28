@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="ShellWT" ng-controller="configCtrl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>注册</title>
+    <script src="../../static/script/plugins/autoRem.js"></script>
+    <link rel="stylesheet" href="../../static/css/front.css"/>
+
+</head>
+<body class="bg_3 scan_page clearfix" ng-controller="scanCtrl" onselectstart="return false">
+    <div class="page_head scan_head">揭开桶盖标签扫描防伪码</div>
+    <!--背景为模糊的，均在原有标签旁加了_blur的标签，用来做模糊背景-->
+    <div class="scan_wrap_blur"></div>
+    <div class="scan_wrap">
+        <img src="../../static/images/scan.png" alt="" class="img_scan"/>
+        <button type="button" class="btn_scan">开始扫描</button>
+    </div>
+
+    <div class="scan_bottom_blur"></div>
+    <div class="scan_bottom_wrap">
+        <div class="scan_bottom">
+            <input type="text" placeholder="无法扫描填写16位数字防伪码" class="scan_bottom_input" maxlength="16"/>
+            <button type="button" class="scan_bottom_btn">确定</button>
+        </div>
+    </div>
+    <!-- 错误信息-->
+    <div class="error_scan none">请填写正确的16位防伪码！</div>
+    <!-- 黑色遮罩-->
+    <div class="mask none"></div>
+    <!-- 笑脸异常弹出层样式  -->
+    <div class="notice_wrap none">
+        <img src="../../static/images/face_1.png" alt="" class="img_face"/>
+        <!--<div class="notice_info_wrap">-->
+            <!--&lt;!&ndash;<div class="parent">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="child">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<p class="notice_info">该产品不参加本次活动，请扫描壳牌4L装极净超凡喜力产品防伪码</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+        <div class="notice_reason">该产品不参加本活动</div>
+        <div class="notice_reason_info">请扫描壳牌4L装极净超凡喜力产品防伪码</div>
+    </div>
+    <!-- 获得话费弹出层-->
+    <div class="result_lucky none">
+        <img src="../../static/images/result.png" alt="" class="img_lucky"/>
+        <p class="lucky_1">恭喜你</p>
+        <p class="lucky_2">获得100元话费！</p>
+        <p class="lucky_3">话费将在两小时内到账～</p>
+    </div>
+    <!-- loading-->
+    <img src="../../static/images/loading.gif" alt="" class="img_loading none"/>
+    <!-- 脚本-->
+    <script src="../../static/script/main.js"></script>
+    <script src="../../static/script/scan.js"></script>
+    <script src="../controller/scanCtrl.js"></script>
+</body>
+</html>

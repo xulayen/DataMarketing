@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>分享</title>
+    <script src="../../static/script/plugins/autoRem.js"></script>
+    <link rel="stylesheet" href="../../static/css/front.css"/>
+</head>
+<body onselectstart="return false" class="bg_share">
+<img src="../../static/images/oil_drum.png" alt="" class="oil_drum"/>
+<img src="../../static/images/logo_text.png" alt="" class="logo_text"/>
+<!--活动规则内容-->
+<div class="active_content_blur none"></div>
+<!-- 活动规则弹窗-->
+<div class="active_content none">
+    <div class="active_body">
+        <h3>一、活动介绍</h3>
+        <p>在指定门店首次购金装新品WT产品，扫产品防伪码即获50元话费奖励（每位用户仅一次参与机会）。</p>
+        <h3>二、活动时间</h3>
+        <p>11月1日起至2016年12月，名额有限，送完为止。</p>
+        <h3>三、活动流程</h3>
+        <ol>
+            <li><b>1、</b>关注公众号
+                <br/>打开微信，扫描二维码，关注壳牌喜力微信公众号。
+            </li>
+            <li><b>2、</b>进入活动
+                <br/>在微信公众号中点击“金装上新”——“购金装领话费”，点击弹出的图文消息进入活动。
+            </li>
+            <li><b>3、</b>验证身份
+                <br/>进入活动主页面，点击“立即参与”，若新用户则进入注册页面，进行个人身份注册；若已注册用户则跳过此步骤。
+            </li>
+            <li><b>4、</b>扫码领话费
+                <br/>点击“开始扫描”，揭开标签，扫描内层二维码，或手动输入16位防伪码，验证真伪，获得50元话费。
+            </li>
+        </ol>
+        <h3>四、活动咨询</h3>
+        <p>活动咨询热线：021-26095506</p>
+    </div>
+</div>
+<!--分享二维码-->
+<div class="sQRcode_wrap">
+    <img src="../../static/images/sQRcode.png" alt="" class="sQRcode"/>
+</div>
+<!-- 按钮-->
+<a type="button" class="active_join">了解活动</a>
+<script src="../../static/script/main.js"></script>
+<script>
+    $('.active_join').click(function(){
+        if($(this).hasClass('btn_close')){
+            $('.active_content,.active_content_blur').hide();
+            $(this).text('了解活动').removeClass('btn_close');
+            $('.oil_drum,.logo_text,.sQRcode').removeClass('bg_blur');
+        }else{
+            $('.active_content,.active_content_blur').show();
+            $(this).text('关闭').addClass('btn_close');
+            $('.oil_drum,.logo_text,.sQRcode').addClass('bg_blur');
+        }
+    });
+</script>
+</body>
+</html>

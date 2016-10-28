@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="ShellWT" ng-controller="configCtrl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>homePage</title>
+    <script src="../../static/script/plugins/autoRem.js"></script>
+    <link rel="stylesheet" href="../../static/css/front.css"/>
+</head>
+<body onselectstart="return false">
+    <!--预加载所有页面中用到的图片-->
+    <div class="loading">
+        <div class="pro">
+            loading <span>0%</span>
+        </div>
+    </div>
+    <!-- 页面内容 -->
+    <div class="bg_1 clearfix none" ng-controller="homeCtrl">
+        <img src="../../static/images/oil_drum.png" alt="" class="oil_drum"/>
+        <img src="../../static/images/logo_text.png" alt="" class="logo_text"/>
+        <!--背景为模糊的，均在原有标签旁加了_blur的标签，用来做模糊背景-->
+        <div class="active_rule_blur"></div>
+        <div class="active_rule">活动规则</div>
+        <!--活动规则内容-->
+        <div class="active_content_blur none"></div>
+        <!-- 活动规则弹窗-->
+        <div class="active_content none">
+            <div class="active_body">
+                <h3>一、活动时间</h3>
+                <p>即日起至2016年12月31日</p>
+                <h3>二、活动咨询</h3>
+                <p>咨询热线：021-26095506</p>
+                <p>工作时间：周一至周五9:00—21:00；</p>
+                <p>周六、周日9：00-18：00</p>
+                <h3>三、活动声明及注意事项</h3>
+                <ol>
+                    <li><b>1、</b>活动主办方：壳牌（中国）有限公司。</li>
+                    <li><b>2、</b>凡自愿参与本活动的，即视为同意本活动规则所述的各项规定，并同意注册手机接收来自壳牌喜力的活动提醒、优惠及其他相关讯息。</li>
+                    <li><b>3、</b>活动时间以主办方网络服务器时间为准。</li>
+                    <li><b>4、</b>前往壳牌喜力指定门店内购买才可参与本次活动，咨询活动服务热线或查看门店列表了解可参与门店。</li>
+                    <li><b>5、</b>本次活动仅限首次购买壳牌喜力4L装金装极净超凡的用户，验证门店码，填写正确完整的个人手机号码（限中国大陆地区移动、联通、电信运营商），验证通过后即可参与活动；</li>
+                    <li><b>6、</b>每位用户在活动期间仅有一次活动参与机会（微信号、微信open ID、手机号码或者其他身份识别账号相同，均被视为同一用户）。</li>
+                    <li><b>7、</b>壳牌WT金装换新活动产品包装标签内的防伪码具有唯一性，每个防伪码在活动期间只能领取一次话费补贴。如一个防伪码参与活动且领取过话费补贴后，再次参与活动均视为无效扫码，将不产生任何有效数据。</li>
+                    <li><b>8、</b>参与活动获得的话费补贴将于两个小时内充值到注册手机账户，如两个工作日后仍未收到话费充值，请咨询活动热线。</li>
+                    <li><b>9、</b>如发现有用户在活动中使用任何不正当的手段（包括但不限于软件作弊、通过系统漏洞、利用黑客工具等）参与活动，活动主办方有权取消其活动参与资格，并有权撤回其所获不当获益，具体认定以主办方判定为准。</li>
+                    <li><b class="lg_nine">10、</b>活动过程中，如出现不可抗力或情势变更的情况（包括但不限于重大灾害事件、活动受政府机关指令需要停止举办或调整的、活动遭受严重网络攻击或因系统故障需要暂停举办等），活动主办方可依相关法律法规的规定主张免责。</li>
+                    <li><b class="lg_nine">11、</b>活动主办方可以根据本活动的实际举办情况对活动规则进行变动或调整，相关变动或调整将公布在活动页面上，并于公布时即时生效。</li>
+                </ol>
+                <div class="copyright">本次活动最终解释权归壳牌（中国）有限公司所有</div>
+            </div>
+        </div>
+        <!-- 按钮-->
+        <a type="button" class="active_join">立即参与</a>
+    </div>
+    <script src="../../static/script/main.js"></script>
+    <!-- 预加载插件-->
+    <script src="../../static/script/plugins/preload.js"></script>
+    <!-- 预加载页面图片-->
+    <script src="../../static/script/homePre.js"></script>
+    <script src="../controller/homeCtrl.js"></script>
+</body>
+</html>
