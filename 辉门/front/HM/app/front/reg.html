@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title></title>
+    <script type="text/javascript" src="../../static/script/plugins/autoRem.js"></script>
+    <link rel="stylesheet" href="../../static/css/front.css"/>
+</head>
+<body onselectstart="return false">
+   <div class="bg_2 none">
+       <img src="../../static/images/logo_1.png" alt="" class="logo_2 blur"/>
+       <!-- 表单模糊背景-->
+       <div class="blur_common rf_box_blur"></div>
+       <!-- 表单-->
+       <form class="reg_form">
+           <ul class="box_common rf_box">
+               <li><input type="text" placeholder="姓名"/></li>
+               <li><input type="text" placeholder="手机" maxlength="11" class="rf_tel" oninput="changeTel()"/></li>
+               <li><input type="password"  placeholder="密码"/></li>
+               <li><input type="password"  placeholder="确认密码"/></li>
+               <li onclick="selShow('sex','性别')">
+                   <div class="form_select sel_sex">性别</div><i class="form_select_more"></i>
+               </li>
+               <li onclick="selShow('province','省份')">
+                   <div class="form_select sel_province">省份</div><i class="form_select_more"></i>
+               </li>
+               <li onclick="selShow('city','城市')">
+                   <div class="form_select sel_city">城市</div><i class="form_select_more"></i>
+               </li>
+               <li onclick="selShow('job','职业')">
+                   <div class="form_select sel_job">职业</div><i class="form_select_more"></i>
+               </li>
+               <li><input type="text"  placeholder="公司"/></li>
+               <li class="license_box">
+                   <div class="parent">
+                       <div class="child">
+                           <div class="license_head">营业执照</div>
+                           <!-- 上传按钮-->
+                           <label class="license_up"><input type="file" accept="image/*" style="position:absolute;clip:rect(0 0 0 0);"/></label>
+                           <!-- 上传后图片，可重新上传-->
+                           <label class="license_img none_important"><img src="../../static/images/logo_2.png" alt="" /><input type="file" accept="image/*" style="position:absolute;clip:rect(0 0 0 0);"/></label>
+                       </div>
+                   </div>
+               </li>
+               <li class="check_box">
+                   <input type="checkbox" id="checkbox_agr" class="chk_agr" checked /><label for="checkbox_agr">我已同意用户协议<span class="use_permit">《用户协议》</span></label>
+               </li>
+               <li><input type="text"  placeholder="填写验证码" maxlength="4" class="rf_code" oninput="changeCode()"/></li>
+               <li class="btn_getCode">获取验证码</li>
+           </ul>
+           <!--btn_normal  按钮的公共样式-->
+           <button type="button" class="btn_normal btn_getPwd" onclick="modifyS()">注册</button>
+       </form>
+       <!-- blur_common        共有模糊背景         select_box       共有选择框
+            blur_sel_sex       选择性别模糊背景     select_sex       选择性别
+            blur_sel_job       选择职业模糊背景     select_job       选择职业
+            blur_sel_province  选择省份模糊背景     select_province  选择省份
+            blur_sel_city      选择城市模糊背景     select_city      选择城市
+       -->
+       <div class="blur_common none"></div>
+       <ul class="select_box none"></ul>
+   </div>
+   <!-- loading-->
+   <img src="../../static/images/loading.gif" alt="" class="img_loading"/>
+    <script src="../../../_public/jquery/jquery-2.2.0.min.js" type="text/javascript"></script>
+   <script type="text/javascript" src="../../static/script/reg.js"></script>
+</body>
+</html>

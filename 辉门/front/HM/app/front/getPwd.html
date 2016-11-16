@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title></title>
+    <script type="text/javascript" src="../../static/script/plugins/autoRem.js"></script>
+    <link rel="stylesheet" href="../../static/css/front.css"/>
+</head>
+<body onselectstart="return false">
+   <div class="bg_2 none">
+       <img src="../../static/images/logo_1.png" alt="" class="logo_2"/>
+       <!-- 表单模糊背景-->
+       <div class="blur_common gf_box_blur"></div>
+       <!-- 表单-->
+       <form class="getPwd_form">
+           <ul class="box_common gf_box">
+               <li><input type="text" class="gf_tel" placeholder="手机号" maxlength="11" oninput="changeTel()"/></li>
+               <li><input type="password" class="gf_pwd" placeholder="输入新密码"/></li>
+               <li><input type="password" class="gf_pwd_c" placeholder="再次输入"/></li>
+               <li><input type="text" class="gf_code" placeholder="输入验证码" maxlength="4" oninput="changeCode()"/></li>
+               <li class="btn_getCode">获取验证码</li>
+           </ul>
+           <!--btn_normal  按钮的公共样式-->
+           <button type="button" class="btn_normal btn_getPwd" onclick="modifyS()">确定</button>
+       </form>
+   </div>
+   <!-- loading-->
+   <img src="../../static/images/loading.gif" alt="" class="img_loading"/>
+   <!-- 修改密码成功弹出层-->
+   <div class="mask none" onclick="location.href='login.html'">
+       <div class="box_common getPwd_succ_wrap">
+           <img src="../../static/images/modify.png" alt="" class="getPwd_succ_img"/>
+           <p class="getPwd_succ_info">密码修改成功</p>
+       </div>
+   </div>
+    <script src="../../../_public/jquery/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script>
+        //设置背景宽、高为设备宽、高
+        bgSet();
+        window.addEventListener("resize", bgSet, false);
+        function bgSet(){
+            var h=$('html').height();
+            if(h>400){
+                $('.bg_2').height(h);
+            }
+            setTimeout(function(){
+                $('.img_loading').hide();
+                $('.bg_2').show();
+            },200);
+        }
+        function changeTel(){
+            var val = $(".gf_tel").val().replace(/\D/,'');
+            $(".gf_tel").val(val);
+        }
+        function changeCode(){
+            var val = $(".gf_code").val().replace(/\D/,'');
+            $(".gf_code").val(val);
+        }
+        function modifyS(){
+            $('.mask').show();
+        }
+    </script>
+</body>
+</html>
