@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>扫描</title>
+    <script type="text/javascript" src="../../static/script/plugins/autoRem.js"></script>
+    <link rel="stylesheet" href="../../static/css/animate.css"/>
+    <link rel="stylesheet" href="../../static/css/front.css"/>
+</head>
+<body class="bg scanPage">
+<!--扫描页面内容-->
+    <div class="scan_cnt">
+        <div class="scan_head">揭码扫描</div>
+        <div class="scan_box">
+            <img src="../../static/images/scan_scan.png" alt="" class="sBox_img"/>
+            <button class="sBox_btn"  onclick="resultShow()">开始扫描</button>
+        </div>
+        <div class="scan_input">
+            <input type="text" placeholder="无法扫描请输入16位数字防伪码" maxlength="16"  class="sIput_input" oninput="changeTo()" onfoucs="changeTo()"/>
+            <button class="sIput_btn" onclick="resultShow2()">确定</button>
+        </div>
+    </div>
+    <div class="mask none"></div>
+    <!--获得礼品结果 点击确认领取，跳转到别的页面-->
+    <div class="sResult_get_wrap none" onclick="resultHide()">
+        <div class="sResult_get">
+            <div class="sResult_get_text">
+                <h2 class="sResult_get_title">恭喜您！</h2>
+                <p class="sResult_get_cnt">获得太平洋保险一份！</p>
+            </div>
+            <img src="../../static/images/sResult_get_img.png" alt="" class="sResult_get_img"/>
+            <button class="sResult_get_btn">确认领取</button>
+        </div>
+    </div>
+    <!--活动异常答复-->
+    <div class="sResult_error none"  onclick="result2Hide()">
+        <div class="error_box_common">
+            <img src="../../static/images/sResult_has.png" alt="" class="result_error_face"/>
+            <!-- 该码已参与过本活动  该产品不参加本活动-->
+            <p class="result_error_title">该产品不参加本活动</p>
+            <!--请购买壳牌活动产品，重新扫描防伪码  请扫描壳牌超凡4L/金装极净超凡4L/劲霸新包装18L/爱得王子1L产品防伪码等答复-->
+            <p class="result_error_cnt">请扫描壳牌超凡4L/金装极净超凡4L/劲霸新包装18L及4L/爱得王子1L产品防伪码</p>
+        </div>
+    </div>
+    <!-- loading-->
+    <img src="../../static/images/loading.gif" alt="" class="img_loading none"/>
+<script type="text/javascript" src="../../static/script/main.js"></script>
+<script>
+    /* 输入框只能输入数字*/
+    function changeTo() {
+        var $input = $(".sIput_input");
+        var val = $input.val().replace(/\D/, '');
+        $input.val(val);
+        if (val.length == 16) {
+            $('.sIput_btn').addClass('sIput_btn_sure');
+        } else {
+            $('.sIput_btn').removeClass('sIput_btn_sure');
+        }
+    }
+    /* 这几个show 和 hide 只是模拟用户操作，掉接口时再依据情况改变*/
+    function resultShow() {
+        $('.mask,.img_loading').show();
+        /* setTimeout 用来模拟掉接口的时间，真正掉完接口后直接
+        $('.img_loading').hide();
+        $('.scan_cnt').hide();
+        $('.sResult_get_wrap').show().find('.sResult_get').addClass('zoomIn');
+        * */
+        setTimeout(function () {
+            $('.img_loading').hide();
+            $('.scan_cnt').hide();
+            $('.sResult_get_wrap').show().find('.sResult_get').addClass('zoomIn_slow');
+        }, 500);
+    }
+    function resultHide() {
+        $('.mask,.img_loading,.sResult_get_wrap').hide();
+        $('.scan_cnt').show();
+    }
+    function resultShow2() {
+        $('.mask,.img_loading').show();
+        setTimeout(function () {
+            $('.img_loading').hide();
+            $('.sResult_error').show().find('.error_box_common').addClass('zoomIn');
+            $('.scan_cnt').addClass('blur');
+        }, 500);
+    }
+    function result2Hide() {
+        $('.mask,.img_loading,.sResult_error').hide();
+        $('.scan_cnt').removeClass('blur');
+    }
+</script>
+</body>
+</html>

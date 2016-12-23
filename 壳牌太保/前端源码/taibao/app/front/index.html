@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="ProjectName" ng-controller="configCtrl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>NG-模版</title>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        button
+        {
+            border-right: #7b9ebd 1px solid;
+            padding-right: 2px;
+            border-top: #7b9ebd 1px solid;
+            padding-left: 2px;
+            font-size: 12px;
+            filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,  StartColorStr=#ffffff,  EndColorStr=#cecfde);
+            border-left: #7b9ebd 1px solid;
+            cursor: hand;
+            color: black;
+            padding-top: 2px;
+            border-bottom: #7b9ebd 1px solid;
+            padding: 10px 20px;
+            margin: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    {{config.facid}}
+    <p>
+        分享到朋友圈、分享给朋友
+    </p>
+    <button id="btnScan">
+        扫一扫
+    </button>
+    <button id="btnLocation">
+        获取地理位置</button>
+    <button id="btnNetwork">
+        获取网络</button>
+    <button id="btnYC">
+        隐藏右上角按钮</button>
+    <button id="btnXS">
+        显示右上角按钮</button>
+    <button id="btnGB">
+        关闭页面</button>
+    <button id="btnAddCard">
+        添加卡券</button>
+    <button id="btnCreateCard">
+        创建卡券</button>
+    <button id="btnVibrate">
+        点击震动</button>
+    <button id="btnCreateCardQR">
+        创建卡券二维码
+    </button>
+    <p id="result">
+    </p>
+    <script src="../../static/script/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var wechatManage = $.WeChart({
+            api: 'http://dmapi.yesno.com.cn/api/wechat/GetWxInfoAndSign',
+            type: 'GET',
+            facid: '00001',
+            typenum: '2',
+            async: false,
+            callback_success: function (result) {
+                this.appId = result.APPID;
+                this.timestamp = result.TIMESTAMP;
+                this.nonceStr = result.NONCESTR;
+                this.signature = result.SIGNATURE;
+                this.access_token = result.ACCESS_TOKEN;
+                alert('Init Success');
+            },
+            分享到朋友圈: true,
+            发送给朋友: true,
+            在Safari中打开: true,
+            分享到QQ: true,
+            分享到Weibo: true,
+            分享到QQ空间: true,
+            forword_title: '测试分享到朋友圈',
+            forword_link: 'http://www.baidu.com/'
+        });
+
+        wechatManage.Forword(function (res) {
+            $("#result").html("分享成功：" + JSON.stringify(res));
+        });
+
+        $("#btnScan").Scan(function (res) {
+            $("#result").html("扫描结果：" + res);
+        });
+
+
+        $("#btnLocation").click(function () {
+            wechatManage.GetLocation(function (res) {
+                $("#result").html("获取位置：" + JSON.stringify(res));
+                wechatManage.OpenLocation({ latitude: res.latitude, longitude: res.longitude, name: '咔咔咔', address: '咔咔咔', infoUrl: 'kakaka' });
+            });
+        });
+
+
+        $("#btnNetwork").click(function () {
+            wechatManage.GetNetWorkType(function (res) {
+                $("#result").html("获取网络：" + JSON.stringify(res));
+            });
+        });
+
+
+        wechatManage.ForwordToFriend(function (res) {
+            $("#result").html("分享给朋友：" + JSON.stringify(res));
+        }, function (res) {
+            $("#result").html("取消分享给朋友：" + JSON.stringify(res));
+        });
+
+
+        wechatManage.ShareQQ(function (res) {
+            $("#result").html("分享QQ：" + JSON.stringify(res));
+        }, function (res) {
+            $("#result").html("取消分享QQ：" + JSON.stringify(res));
+        });
+
+        wechatManage.ShareWeibo(function (res) {
+            $("#result").html("分享到微博：" + JSON.stringify(res));
+        }, function (res) {
+            $("#result").html("取消分享到微博：" + JSON.stringify(res));
+        });
+
+        wechatManage.ShareQZone(function (res) {
+            $("#result").html("分享到QQ空间：" + JSON.stringify(res));
+        }, function (res) {
+            $("#result").html("取消分享到QQ空间：" + JSON.stringify(res));
+        });
+
+        $("#btnYC").click(function () {
+            wechatManage.HideOptionMenu();
+        });
+        $("#btnXS").click(function () {
+            wechatManage.ShowOptionMenu();
+        });
+
+        $("#btnGB").click(function () {
+            wechatManage.CloseWindow();
+        });
+
+
+
+        $("#btnAddCard").click(function () {
+            wechatManage.AddCard();
+        });
+
+        $("#btnCreateCard").click(function () {
+            wechatManage.CreateCard();
+        });
+
+
+        $("button").click(function () {
+            navigator.vibrate(2);
+        });
+
+        $("#btnCreateCardQR").click(function () {
+            wechatManage.CreateCardQR();
+        });
+    </script>
+</body>
+</html>
