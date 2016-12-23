@@ -1,0 +1,37 @@
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IWeiXinRedPackGiveOut" />
+            </basicHttpBinding>
+        </bindings>
+        <client>
+          <!--<endpoint address="http://localhost:8020/GiveOut.svc" binding="basicHttpBinding"-->
+            <!--<endpoint address="http://192.168.10.191:8083/GiveOut.svc" binding="basicHttpBinding"-->
+          <endpoint address="http://172.16.1.70:8020/GiveOut.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IWeiXinRedPackGiveOut"
+                contract="WeiXinRedGive.IWeiXinRedPackGiveOut" name="BasicHttpBinding_IWeiXinRedPackGiveOut" />
+        </client>
+    </system.servic        
+
+private static string SendRedPack()
+        {
+            Dictionary<string, string> dicParameter = new Dictionary<string, string>();
+            WeiXinRedGive.WeiXinRedPackGiveOutClient clien = new WeiXinRedGive.WeiXinRedPackGiveOutClient();
+            dicParameter[CCNWeiXinDefine.WEIXIN_RE_OPENID] = "otLp8jjHv3Nb7LLbjbhFg2QkxCeY"; //OPENID
+            dicParameter[CCNWeiXinDefine.WEIXIN_ACT_NAME] = "ActivityName";//活动名称
+            dicParameter[CCNWeiXinDefine.WEIXIN_ACT_ID] = "64904";//红包ID，随意填一个，单不能空
+            dicParameter[CCNWeiXinDefine.WEIXIN_APPID] = "wx050f2eb2da69e7d5";//APPID
+            dicParameter[CCNWeiXinDefine.WEIXIN_CLIENT_IP] = "127.0.0.1";//发送端IP，
+            dicParameter[CCNWeiXinDefine.WEIXIN_LOGO_IMGURL] = @"http://127.0.0.1/LogoImg.gif";//公众号LOG地址
+            dicParameter[CCNWeiXinDefine.WEIXIN_MCH_ID] = "1247115001";//商户ID
+            dicParameter[CCNWeiXinDefine.WEIXIN_SEND_NAME] = "zhongshangwangluo";//发送方名称
+            dicParameter[CCNWeiXinDefine.WEIXIN_TOTAL_AMOUNT] = "1.00";//金额
+            dicParameter[CCNWeiXinDefine.WEIXIN_NICK_NAME] = "zhongshangwangluo";//发送方昵称
+            dicParameter[CCNWeiXinDefine.WEIXIN_REMARK] = "Remark";//发送语
+            dicParameter[CCNWeiXinDefine.WEIXIN_SHARE_CONTENT] = "ShareContent";//分享内容
+            dicParameter[CCNWeiXinDefine.WEIXIN_SHARE_IMGURL] = @"http://127.0.0.1/ShareImgUrl";//分享图片，没有填一个格式就可以，不能空，空了校验不过去
+            dicParameter[CCNWeiXinDefine.WEIXIN_SHARE_URL] = @"http://127.0.0.1/ShareUrl";//分享地址，没有填一个格式就可以，不能空，空了校验不过去
+            dicParameter[CCNWeiXinDefine.WEIXIN_WISHING] = "Wish";//打开祝福语
+            dicParameter[CCNWeiXinDefine.WEIXIN_CERTIFICATESECRET] = "ZHONGhuaLUBwei160112WX";//秘钥
+            dicParameter[CCNWeiXinDefine.WEIXIN_CERTIFICATEPATH] = @"上海中商网络股份有限公司";//证书名称
+            return clien.GetData(dicParameter);
+        }

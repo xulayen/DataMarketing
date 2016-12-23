@@ -1,0 +1,1378 @@
+-- Create table
+create table T_SGM_TABLE_CONTROL
+(
+  facid        VARCHAR2(20) not null,
+  result_facid VARCHAR2(20) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_TABLE_CONTROL
+  is '积分数据结构总控表';
+-- Add comments to the columns 
+comment on column T_SGM_TABLE_CONTROL.facid
+  is '厂家编号';
+comment on column T_SGM_TABLE_CONTROL.result_facid
+  is '分/合 表编号 表名后缀';
+
+
+
+-- Create table
+create table T_SGM_SHAKE_CONTROL
+(
+  id           NVARCHAR2(32) not null,
+  serviceid    NVARCHAR2(250),
+  jointype     VARCHAR2(10),
+  facid        NVARCHAR2(10),
+  proid        NVARCHAR2(10),
+  activityid   NVARCHAR2(10),
+  promark      CHAR(1),
+  ptablefield  NVARCHAR2(20),
+  deleteflag   CHAR(1) default 1,
+  createdate   DATE default SYSDATE,
+  activityname NVARCHAR2(50),
+  jointypename VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_CONTROL
+  is '活动总控制表';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_CONTROL.id
+  is 'GUID';
+comment on column T_SGM_SHAKE_CONTROL.serviceid
+  is '特服号';
+comment on column T_SGM_SHAKE_CONTROL.jointype
+  is '参与类型   S短信\W网页\T电话';
+comment on column T_SGM_SHAKE_CONTROL.facid
+  is '工厂编码';
+comment on column T_SGM_SHAKE_CONTROL.proid
+  is '产品编码';
+comment on column T_SGM_SHAKE_CONTROL.activityid
+  is '活动编码';
+comment on column T_SGM_SHAKE_CONTROL.promark
+  is '产品标志 0 P表区分产品 1 p表不区分产品';
+comment on column T_SGM_SHAKE_CONTROL.ptablefield
+  is 'P表对应产品字段';
+comment on column T_SGM_SHAKE_CONTROL.deleteflag
+  is '可用标志：0不可用，1可用';
+comment on column T_SGM_SHAKE_CONTROL.createdate
+  is '创建时间';
+comment on column T_SGM_SHAKE_CONTROL.activityname
+  is '活动名称';
+comment on column T_SGM_SHAKE_CONTROL.jointypename
+  is '参与类型名称描述';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_SGM_SHAKE_CONTROL
+  add constraint PX_T_SGM_SHAKE_CONTROL primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+
+-- Create table
+create table T_SGM_SHAKE_RULE_9999
+(
+  guid            NVARCHAR2(32) not null,
+  activityid      NVARCHAR2(10),
+  activityname    NVARCHAR2(50),
+  totalpop        NUMBER,
+  smstimes        NUMBER,
+  startdate       DATE,
+  enddate         DATE,
+  poolid          NVARCHAR2(10),
+  maxlotterytimes NUMBER,
+  cycletimes      NUMBER,
+  cycle           CHAR(1),
+  digitlimit      CHAR(1),
+  maxjointimes    NUMBER,
+  activitysort    NUMBER,
+  deleteflag      CHAR(1),
+  createdate      DATE,
+  protype         NVARCHAR2(200),
+  facid           VARCHAR2(20),
+  batchid         VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_RULE_9999
+  is '有奖活动规则表';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_RULE_9999.guid
+  is '活动GUID';
+comment on column T_SGM_SHAKE_RULE_9999.activityid
+  is '活动编码（子）';
+comment on column T_SGM_SHAKE_RULE_9999.activityname
+  is '活动/期名称';
+comment on column T_SGM_SHAKE_RULE_9999.totalpop
+  is '当前参与总人数';
+comment on column T_SGM_SHAKE_RULE_9999.smstimes
+  is '短信提醒次数阈值';
+comment on column T_SGM_SHAKE_RULE_9999.startdate
+  is '活动开始日期';
+comment on column T_SGM_SHAKE_RULE_9999.enddate
+  is '活动结束日期';
+comment on column T_SGM_SHAKE_RULE_9999.poolid
+  is '奖池编码(父)';
+comment on column T_SGM_SHAKE_RULE_9999.maxlotterytimes
+  is '允许最大中奖次数';
+comment on column T_SGM_SHAKE_RULE_9999.cycletimes
+  is '周期数量';
+comment on column T_SGM_SHAKE_RULE_9999.cycle
+  is '周期(年Y 月M 日D 周W 不区分N)';
+comment on column T_SGM_SHAKE_RULE_9999.digitlimit
+  is '数码限制 ：1首次 0 不限制';
+comment on column T_SGM_SHAKE_RULE_9999.maxjointimes
+  is '参与最大次数';
+comment on column T_SGM_SHAKE_RULE_9999.activitysort
+  is '排序';
+comment on column T_SGM_SHAKE_RULE_9999.deleteflag
+  is '可用状态：1可用 ，0不可用';
+comment on column T_SGM_SHAKE_RULE_9999.createdate
+  is '创建日期';
+comment on column T_SGM_SHAKE_RULE_9999.protype
+  is '产品类型';
+comment on column T_SGM_SHAKE_RULE_9999.batchid
+  is '批次号';
+
+
+
+-- Create table
+create table T_SGM_SHAKE_POOL_9999
+(
+  id            NVARCHAR2(32) not null,
+  poolid        NVARCHAR2(10),
+  awardscode    NUMBER,
+  awardname     NVARCHAR2(32),
+  awardscale    NUMBER,
+  smsvalue      NUMBER,
+  totaltimes    NUMBER,
+  lotterytimes  NUMBER,
+  maxopenlotter NUMBER,
+  poolsort      NUMBER,
+  deleteflag    CHAR(1),
+  createdate    DATE,
+  productname   NVARCHAR2(20),
+  facid         VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_POOL_9999
+  is '奖池（中奖规则）';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_POOL_9999.id
+  is 'GUID';
+comment on column T_SGM_SHAKE_POOL_9999.poolid
+  is '奖池编码（子）';
+comment on column T_SGM_SHAKE_POOL_9999.awardscode
+  is '奖项编号';
+comment on column T_SGM_SHAKE_POOL_9999.awardname
+  is '奖项名称';
+comment on column T_SGM_SHAKE_POOL_9999.awardscale
+  is '中奖比例阈值';
+comment on column T_SGM_SHAKE_POOL_9999.smsvalue
+  is '短信提醒阈值';
+comment on column T_SGM_SHAKE_POOL_9999.totaltimes
+  is '本期奖项总数';
+comment on column T_SGM_SHAKE_POOL_9999.lotterytimes
+  is '本期已中奖';
+comment on column T_SGM_SHAKE_POOL_9999.maxopenlotter
+  is '每日开奖最大数量';
+comment on column T_SGM_SHAKE_POOL_9999.poolsort
+  is '排序';
+comment on column T_SGM_SHAKE_POOL_9999.deleteflag
+  is '可用标记：1可用 ，0不可用';
+comment on column T_SGM_SHAKE_POOL_9999.createdate
+  is '创建日期';
+comment on column T_SGM_SHAKE_POOL_9999.productname
+  is '礼品名称';
+
+
+
+-- Create table
+create table T_SGM_COMMON_LOTTERYDLL
+(
+  facid     VARCHAR2(10) not null,
+  facname   VARCHAR2(40),
+  dllname   VARCHAR2(60),
+  classname VARCHAR2(80) not null,
+  method    VARCHAR2(60) not null,
+  memo      VARCHAR2(500),
+  type      CHAR(10) default '1' not null,
+  flag      CHAR(1) default '1'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_COMMON_LOTTERYDLL
+  is '抽奖组建DLL配置表';
+-- Add comments to the columns 
+comment on column T_SGM_COMMON_LOTTERYDLL.facid
+  is '厂家编号';
+comment on column T_SGM_COMMON_LOTTERYDLL.facname
+  is '厂家名称';
+comment on column T_SGM_COMMON_LOTTERYDLL.dllname
+  is 'DLL文件名';
+comment on column T_SGM_COMMON_LOTTERYDLL.classname
+  is '类名';
+comment on column T_SGM_COMMON_LOTTERYDLL.method
+  is '方法名';
+comment on column T_SGM_COMMON_LOTTERYDLL.memo
+  is '备注';
+comment on column T_SGM_COMMON_LOTTERYDLL.type
+  is '类别(扩展使用)1:数码抽奖 2:数码抽奖用户注册 3:电子优惠卷 4:积分抽奖 5:积分摇奖 6:检查数码是否存在 7:话费抽奖+注册 8:红包  9：检查手机号当前月是否参与过活动 10：邀请好友参与活动接口';
+comment on column T_SGM_COMMON_LOTTERYDLL.flag
+  is '状态(1:启用,0:不启用)';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_SGM_COMMON_LOTTERYDLL
+  add constraint T_SGM_COMMON_LOTTERYDLL_PK primary key (FACID, CLASSNAME, TYPE, METHOD)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+-- Create table
+create table T_SGM_SHAKE_DEFAULTMASSAGE
+(
+  factoryid    VARCHAR2(6) not null,
+  msg_id       VARCHAR2(2) not null,
+  msg_type     VARCHAR2(50),
+  msg_content  NVARCHAR2(500) not null,
+  msg_language CHAR(1) default '1' not null,
+  msg_channel  CHAR(1) default 'W' not null,
+  flag         CHAR(1) default '1' not null,
+  create_date  DATE default SYSDATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_DEFAULTMASSAGE
+  is '默认回复配置表';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_DEFAULTMASSAGE.factoryid
+  is '厂家编号';
+comment on column T_SGM_SHAKE_DEFAULTMASSAGE.msg_id
+  is '答复类别';
+comment on column T_SGM_SHAKE_DEFAULTMASSAGE.msg_type
+  is '答复描述';
+comment on column T_SGM_SHAKE_DEFAULTMASSAGE.msg_content
+  is '答复内容';
+comment on column T_SGM_SHAKE_DEFAULTMASSAGE.msg_language
+  is '答复语言';
+comment on column T_SGM_SHAKE_DEFAULTMASSAGE.msg_channel
+  is '通道类型';
+comment on column T_SGM_SHAKE_DEFAULTMASSAGE.flag
+  is '状态';
+comment on column T_SGM_SHAKE_DEFAULTMASSAGE.create_date
+  is '创建时间';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_SGM_SHAKE_DEFAULTMASSAGE
+  add constraint T_SGM_SHAKE_DEFAULTMASSAGE_PK primary key (FACTORYID, MSG_ID, MSG_CONTENT, MSG_LANGUAGE, MSG_CHANNEL)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table T_SGM_SHAKE_REPLY
+(
+  guid       NVARCHAR2(32) not null,
+  facid      NVARCHAR2(10),
+  activityid NVARCHAR2(10),
+  replyid    NVARCHAR2(32),
+  replyname  NVARCHAR2(50),
+  reply      NVARCHAR2(500),
+  deleteflag CHAR(1) default 1,
+  createdate DATE default SYSDATE,
+  proid      NVARCHAR2(10),
+  language   CHAR(1) default 1,
+  isupdate   CHAR(1) default 1,
+  channel    CHAR(1) default 'W'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_REPLY
+  is '中奖回复语句字典';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_REPLY.guid
+  is 'GUID';
+comment on column T_SGM_SHAKE_REPLY.facid
+  is '工厂编码';
+comment on column T_SGM_SHAKE_REPLY.activityid
+  is '活动编码';
+comment on column T_SGM_SHAKE_REPLY.replyid
+  is '回复编码';
+comment on column T_SGM_SHAKE_REPLY.replyname
+  is '回复编码名称';
+comment on column T_SGM_SHAKE_REPLY.reply
+  is '回复语句';
+comment on column T_SGM_SHAKE_REPLY.deleteflag
+  is '可用标记';
+comment on column T_SGM_SHAKE_REPLY.createdate
+  is '创建日期';
+comment on column T_SGM_SHAKE_REPLY.proid
+  is '产品编码';
+comment on column T_SGM_SHAKE_REPLY.language
+  is '语言 1:中文，2:英文';
+comment on column T_SGM_SHAKE_REPLY.isupdate
+  is '是否允许修改';
+comment on column T_SGM_SHAKE_REPLY.channel
+  is '通道类型(W,S,M)';
+
+
+
+
+-- Create table
+create table T_SGM_BASEDATA
+(
+  codeid       VARCHAR2(50),
+  name         VARCHAR2(50),
+  datatypename VARCHAR2(50),
+  memo         VARCHAR2(50),
+  lotterymoeny NUMBER,
+  facid        VARCHAR2(20),
+  subtype      VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+-- Create table
+create table T_SGM_SHAKE_LOG_9999
+(
+  guid        NVARCHAR2(32) not null,
+  userid      NVARCHAR2(100),
+  usertype    CHAR(1),
+  digit       NVARCHAR2(32),
+  joindate    DATE,
+  upcontent   NVARCHAR2(255),
+  downcontent NVARCHAR2(255),
+  awardsno    NUMBER,
+  deleteflag  CHAR(1) default 1,
+  createdae   DATE,
+  area        VARCHAR2(50),
+  activityid  VARCHAR2(10),
+  protype     VARCHAR2(20),
+  awardsname  VARCHAR2(50),
+  tracknum    NVARCHAR2(2),
+  facid       VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_LOG_9999
+  is '参与日志';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_LOG_9999.guid
+  is 'GUID';
+comment on column T_SGM_SHAKE_LOG_9999.userid
+  is '用户/手机';
+comment on column T_SGM_SHAKE_LOG_9999.usertype
+  is '用户类型：W网站，S短信，T电话';
+comment on column T_SGM_SHAKE_LOG_9999.digit
+  is '数码';
+comment on column T_SGM_SHAKE_LOG_9999.joindate
+  is '参与时间';
+comment on column T_SGM_SHAKE_LOG_9999.upcontent
+  is '上行内容';
+comment on column T_SGM_SHAKE_LOG_9999.downcontent
+  is '下行内容';
+comment on column T_SGM_SHAKE_LOG_9999.awardsno
+  is '中奖奖项编号，0未中奖';
+comment on column T_SGM_SHAKE_LOG_9999.deleteflag
+  is '可用标记：0不用可用，1可用';
+comment on column T_SGM_SHAKE_LOG_9999.createdae
+  is '创建日期';
+comment on column T_SGM_SHAKE_LOG_9999.area
+  is '地区';
+comment on column T_SGM_SHAKE_LOG_9999.activityid
+  is '活动编码';
+comment on column T_SGM_SHAKE_LOG_9999.protype
+  is '产品类别';
+comment on column T_SGM_SHAKE_LOG_9999.awardsname
+  is '中奖奖项名称';
+comment on column T_SGM_SHAKE_LOG_9999.tracknum
+  is '赛道号';
+
+
+
+-- Create table
+create table T_SGM_SHAKE_PARLOG_9999
+(
+  guid        NVARCHAR2(32) not null,
+  facid       VARCHAR2(50),
+  userid      NVARCHAR2(100),
+  usertype    CHAR(1),
+  digit       NVARCHAR2(32),
+  joindate    DATE,
+  upcontent   NVARCHAR2(255),
+  downcontent NVARCHAR2(255),
+  awardsno    NUMBER,
+  deleteflag  CHAR(1) default 1,
+  createdae   DATE,
+  area        VARCHAR2(50),
+  activityid  VARCHAR2(10),
+  awardsname  VARCHAR2(50),
+  proid       VARCHAR2(50),
+  againcode   NVARCHAR2(32),
+  poolid      VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_PARLOG_9999
+  is '参与日志';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_PARLOG_9999.guid
+  is 'GUID';
+comment on column T_SGM_SHAKE_PARLOG_9999.facid
+  is '厂家编码';
+comment on column T_SGM_SHAKE_PARLOG_9999.userid
+  is '用户/手机';
+comment on column T_SGM_SHAKE_PARLOG_9999.usertype
+  is '用户类型：W网站，S短信，T电话';
+comment on column T_SGM_SHAKE_PARLOG_9999.digit
+  is '数码';
+comment on column T_SGM_SHAKE_PARLOG_9999.joindate
+  is '参与时间';
+comment on column T_SGM_SHAKE_PARLOG_9999.upcontent
+  is '上行内容';
+comment on column T_SGM_SHAKE_PARLOG_9999.downcontent
+  is '下行内容';
+comment on column T_SGM_SHAKE_PARLOG_9999.awardsno
+  is '中奖奖项编号，0未中奖';
+comment on column T_SGM_SHAKE_PARLOG_9999.deleteflag
+  is '可用标记：0不用可用，1可用';
+comment on column T_SGM_SHAKE_PARLOG_9999.createdae
+  is '创建日期';
+comment on column T_SGM_SHAKE_PARLOG_9999.area
+  is '地区';
+comment on column T_SGM_SHAKE_PARLOG_9999.activityid
+  is '活动编码';
+comment on column T_SGM_SHAKE_PARLOG_9999.proid
+  is '产品编码';
+comment on column T_SGM_SHAKE_PARLOG_9999.againcode
+  is '二次加密数码';
+comment on column T_SGM_SHAKE_PARLOG_9999.poolid
+  is '奖池编码';
+
+
+
+-- Create table
+create table T_SGM_SHAKE_LOTTERYLOG_9999
+(
+  facid       VARCHAR2(20) not null,
+  guid        NVARCHAR2(32) not null,
+  userid      NVARCHAR2(100),
+  usertype    CHAR(1),
+  digit       NVARCHAR2(32) not null,
+  joindate    DATE,
+  upcontent   NVARCHAR2(255),
+  downcontent NVARCHAR2(255),
+  awardsno    NUMBER,
+  deleteflag  CHAR(1) default 1,
+  createdae   DATE,
+  area        VARCHAR2(50),
+  protype     VARCHAR2(20),
+  poolid      NVARCHAR2(10),
+  activityid  NVARCHAR2(10),
+  againcode   VARCHAR2(32),
+  newpoolid   NVARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_LOTTERYLOG_9999
+  is '中奖记录日志';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.guid
+  is 'GUID';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.userid
+  is '用户/手机';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.usertype
+  is '用户类型';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.digit
+  is '数码';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.joindate
+  is '参与时间';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.upcontent
+  is '上行内容';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.downcontent
+  is '下行内容';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.awardsno
+  is '中奖奖项编号';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.deleteflag
+  is '可用标记';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.createdae
+  is '创建日期';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.area
+  is '地区';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.protype
+  is '产品类别';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.poolid
+  is '奖池编码（子）';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.activityid
+  is '活动编码';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.againcode
+  is '二次加密数码';
+comment on column T_SGM_SHAKE_LOTTERYLOG_9999.newpoolid
+  is '所属活动编码';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_SGM_SHAKE_LOTTERYLOG_9999
+  add constraint LOTTERYLOG_PK_DIDIT_FACID primary key (FACID, DIGIT)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+-- Create table
+create table T_SGM_SHAKE_REGISTERUSER_9999
+(
+  spro            VARCHAR2(16) not null,
+  category        CHAR(1),
+  ip              VARCHAR2(30),
+  vdate           DATE default sysdate,
+  lotterylevel    VARCHAR2(4),
+  change_way      CHAR(1),
+  change_type     CHAR(1),
+  user_name       VARCHAR2(30),
+  user_address    VARCHAR2(100),
+  user_zipcode    VARCHAR2(6),
+  user_telephone  VARCHAR2(30),
+  change_date     DATE,
+  post_date       DATE,
+  state           CHAR(1) default '1',
+  closeing_date   DATE,
+  memo            VARCHAR2(100),
+  flag            CHAR(1) default '1',
+  lotteryname     VARCHAR2(100),
+  company         VARCHAR2(50),
+  newcode         VARCHAR2(16),
+  facid           VARCHAR2(6) not null,
+  productname     VARCHAR2(50),
+  shopingdate     DATE,
+  shopingaddress  VARCHAR2(100),
+  shopname        VARCHAR2(50),
+  shop_date       DATE,
+  province        VARCHAR2(10),
+  city            VARCHAR2(10),
+  county          VARCHAR2(10),
+  productid       VARCHAR2(30),
+  guid            NVARCHAR2(32) not null,
+  openid          NVARCHAR2(64),
+  user_email      VARCHAR2(50),
+  express_company NVARCHAR2(64),
+  express_number  NVARCHAR2(64),
+  f1              NVARCHAR2(64),
+  f2              NVARCHAR2(64),
+  f3              NVARCHAR2(64),
+  f4              NVARCHAR2(64),
+  f5              NVARCHAR2(64),
+  f6              NVARCHAR2(64),
+  f7              NVARCHAR2(64),
+  f8              NVARCHAR2(64),
+  f9              NVARCHAR2(64),
+  f10             NVARCHAR2(64),
+  user_sex        CHAR(1),
+  user_nickname   VARCHAR2(200),
+  anomalystate    CHAR(1) default 0,
+  anomalyreason   VARCHAR2(500),
+  activation      CHAR(1),
+  f11             NVARCHAR2(64),
+  f12             NVARCHAR2(64),
+  f13             NVARCHAR2(64),
+  f14             NVARCHAR2(64) default 0,
+  wx_country      NVARCHAR2(50),
+  wx_province     NVARCHAR2(50),
+  wx_city         NVARCHAR2(50),
+  wx_headimgurl   VARCHAR2(200),
+  wx_unionid      VARCHAR2(50),
+  activityid      VARCHAR2(10),
+  phonesystem     VARCHAR2(30),
+  browsertype     VARCHAR2(30),
+  gpstime         VARCHAR2(30),
+  gps             VARCHAR2(100),
+  carbrand        VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_SHAKE_REGISTERUSER_9999
+  is '中奖表(T_SGM_SHAKE_RegisterUSER_+FACCODE)';
+-- Add comments to the columns 
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.spro
+  is '防伪数码';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.category
+  is '查询方式（Wap、手机短信、网站）';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.ip
+  is '来源号码';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.vdate
+  is '查询时间';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.lotterylevel
+  is '奖项级别';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.change_way
+  is '兑奖途径 ( 0 邮寄，1 自取，2 邮件发送 )';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.change_type
+  is '兑奖方式';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.user_name
+  is '中奖姓名 （账户姓名）';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.user_address
+  is '中奖邮寄地址';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.user_zipcode
+  is '中奖邮编';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.user_telephone
+  is '中奖联系电话 （账户联系电话）';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.change_date
+  is '兑奖日期';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.post_date
+  is '寄送日期';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.state
+  is '兑奖状态（2已导出、未兑3、邮寄中4、已寄出5、未收到6、兑奖成功7、兑奖失败8,  用户预注册9）';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.closeing_date
+  is '兑奖截止日期';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.memo
+  is '备注';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.flag
+  is '标志';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.lotteryname
+  is '奖品';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.company
+  is '公司名称';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.newcode
+  is '二次加密后的数码';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.facid
+  is '厂家编号';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.productname
+  is '产品名称';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.shopingdate
+  is '产品购买时间';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.shopingaddress
+  is '产品购买地点';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.shopname
+  is '产品购买商店名称';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.shop_date
+  is '产品购买商店营业时间';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.province
+  is '省';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.city
+  is '市';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.county
+  is '区';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.productid
+  is '关联的产品';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.guid
+  is 'GUID';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.openid
+  is '微信粉丝号';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.user_email
+  is '中奖联系邮箱';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.express_company
+  is '快递公司';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.express_number
+  is '快递单号';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f1
+  is '(京东)卡密';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f2
+  is '微信用户所在国家名称';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f3
+  is '微信用户所在省份名称';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f4
+  is '微信用户所在城市名称';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f5
+  is '收货人姓名';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f6
+  is '收货人联系电话';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f7
+  is 'R5E二期标识';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.user_sex
+  is '中奖用户性别 1 ：男   0 ： 女 (微信用户性别)';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.user_nickname
+  is '中奖姓名昵称  (微信用户昵称)';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.anomalystate
+  is '异常处理状态 正常 0
+  ，退回 1
+，破损派送 2';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.anomalyreason
+  is '异常处理原因';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.activation
+  is '针对京东卡密是否激活 0  未激活  1 已激活';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f11
+  is '品牌 R5E二期';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f12
+  is '车龄 R5E二期';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f13
+  is '马力 R5E二期';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.f14
+  is '是否邀请好友 R5E二期 0：没有 1：已邀请';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.wx_country
+  is '微信用户所在的国家';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.wx_province
+  is '微信用户所在的省份';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.wx_city
+  is '微信用户所在的城市';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.wx_headimgurl
+  is '微信用户头像图片地址';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.wx_unionid
+  is '微信用户unionID （用于多个移动应用，网站应用）的用户唯一标识';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.activityid
+  is '参与活动的ID';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.phonesystem
+  is '手机系统';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.browsertype
+  is '浏览器类型';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.gpstime
+  is '获取GPS的时间';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.gps
+  is 'GPS的经纬度或者IP地址';
+comment on column T_SGM_SHAKE_REGISTERUSER_9999.carbrand
+  is '汽车品牌（曼牌项目）';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_SGM_SHAKE_REGISTERUSER_9999
+  add constraint RESGISTERUSER_PK_SPRO_FACID primary key (GUID, SPRO, FACID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+
+-- Create table
+create table T_SGM_CONSUMEREWARD
+(
+  consumeguid   NVARCHAR2(32),
+  digitalcode   NVARCHAR2(32),
+  activitytype  NVARCHAR2(12),
+  awardid       NVARCHAR2(64),
+  mobile        VARCHAR2(30),
+  cardid        NVARCHAR2(32),
+  giftnum       NVARCHAR2(10),
+  carbrand      NVARCHAR2(50),
+  createtime    DATE default sysdate,
+  updatetime    DATE,
+  isconsume     NVARCHAR2(32) default 0,
+  deleteflag    CHAR(1) default 1,
+  facid         NVARCHAR2(10),
+  f1            NVARCHAR2(32),
+  f2            NVARCHAR2(32),
+  f3            NVARCHAR2(32),
+  ip            VARCHAR2(32),
+  provincename  NVARCHAR2(32),
+  cityname      NVARCHAR2(32),
+  dealername    NVARCHAR2(64),
+  logisticscode VARCHAR2(64),
+  dealerid      VARCHAR2(64),
+  productname   NVARCHAR2(128),
+  productid     NVARCHAR2(64),
+  openid        VARCHAR2(64)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_SGM_CONSUMEREWARD.consumeguid
+  is '唯一标识';
+comment on column T_SGM_CONSUMEREWARD.digitalcode
+  is '防伪数码（16位中商数字码）';
+comment on column T_SGM_CONSUMEREWARD.activitytype
+  is '活动类型';
+comment on column T_SGM_CONSUMEREWARD.awardid
+  is '奖品编号';
+comment on column T_SGM_CONSUMEREWARD.mobile
+  is '手机号码';
+comment on column T_SGM_CONSUMEREWARD.cardid
+  is '卡券号码';
+comment on column T_SGM_CONSUMEREWARD.giftnum
+  is '礼品数量';
+comment on column T_SGM_CONSUMEREWARD.carbrand
+  is '汽车品牌';
+comment on column T_SGM_CONSUMEREWARD.createtime
+  is '创建时间';
+comment on column T_SGM_CONSUMEREWARD.updatetime
+  is '更新时间';
+comment on column T_SGM_CONSUMEREWARD.isconsume
+  is '是否核销';
+comment on column T_SGM_CONSUMEREWARD.deleteflag
+  is '是否删除';
+comment on column T_SGM_CONSUMEREWARD.facid
+  is '厂家编号';
+comment on column T_SGM_CONSUMEREWARD.f1
+  is '备用字段';
+comment on column T_SGM_CONSUMEREWARD.f2
+  is '备用字段';
+comment on column T_SGM_CONSUMEREWARD.f3
+  is '备用字段';
+comment on column T_SGM_CONSUMEREWARD.ip
+  is 'IP地址';
+comment on column T_SGM_CONSUMEREWARD.provincename
+  is '省名称';
+comment on column T_SGM_CONSUMEREWARD.cityname
+  is '市名称';
+comment on column T_SGM_CONSUMEREWARD.dealername
+  is '经销商名称';
+comment on column T_SGM_CONSUMEREWARD.logisticscode
+  is '物流码';
+comment on column T_SGM_CONSUMEREWARD.dealerid
+  is '经销商编号';
+comment on column T_SGM_CONSUMEREWARD.productname
+  is '产品名称';
+comment on column T_SGM_CONSUMEREWARD.productid
+  is '产品编号';
+comment on column T_SGM_CONSUMEREWARD.openid
+  is 'OPENID';
+-- Create/Recreate indexes 
+create index INDEX_T_SGM_REWARD_MOBILE on T_SGM_CONSUMEREWARD (MOBILE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_SGM_CONSUMEREWARD
+  add constraint PK_T_SGM_REWARD_ID unique (CONSUMEGUID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+
+-- Create table
+create table T_CCN_AC_USER
+(
+  id                 NUMBER not null,
+  userid             VARCHAR2(64) not null,
+  userpwd            VARCHAR2(64) not null,
+  factoryid          VARCHAR2(20) not null,
+  oid                VARCHAR2(20) not null,
+  createtime         DATE default sysdate,
+  flag               VARCHAR2(2) default '1',
+  reply              NVARCHAR2(1000),
+  begintime          DATE,
+  endtime            DATE,
+  iscustomer         VARCHAR2(1) default 0,
+  facproductid       VARCHAR2(500),
+  projectid          VARCHAR2(32),
+  activename         VARCHAR2(100),
+  appsecret          VARCHAR2(50),
+  sendmessage        VARCHAR2(200),
+  sendmessageuserid  VARCHAR2(32),
+  sendmessageuserpwd VARCHAR2(32),
+  tokenkey           VARCHAR2(32)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_CCN_AC_USER
+  is '新平台防伪查询对外接口授权用户表';
+-- Add comments to the columns 
+comment on column T_CCN_AC_USER.id
+  is '编号';
+comment on column T_CCN_AC_USER.userid
+  is '授权帐号';
+comment on column T_CCN_AC_USER.userpwd
+  is '授权密码';
+comment on column T_CCN_AC_USER.factoryid
+  is '厂家编号';
+comment on column T_CCN_AC_USER.oid
+  is '用户标识';
+comment on column T_CCN_AC_USER.createtime
+  is '创建时间';
+comment on column T_CCN_AC_USER.flag
+  is '可用标志(0：不可用，1可用)';
+comment on column T_CCN_AC_USER.reply
+  is '返回信息模板';
+comment on column T_CCN_AC_USER.begintime
+  is '授权开始时间';
+comment on column T_CCN_AC_USER.endtime
+  is '授权结束时间';
+comment on column T_CCN_AC_USER.iscustomer
+  is '是否记录防伪查询日志 (0:记录,1:不记录)';
+comment on column T_CCN_AC_USER.facproductid
+  is '允许被查询的厂家产品编号';
+comment on column T_CCN_AC_USER.projectid
+  is '对应项目编号（针对短信发送平台的PID，便于统计短信计费）';
+comment on column T_CCN_AC_USER.activename
+  is '活动名称（客户名称）';
+comment on column T_CCN_AC_USER.appsecret
+  is '产品秘钥（供生成签名使用）';
+comment on column T_CCN_AC_USER.sendmessage
+  is '需要发送的短信内容';
+comment on column T_CCN_AC_USER.sendmessageuserid
+  is '平台分配的短信发送账号';
+comment on column T_CCN_AC_USER.sendmessageuserpwd
+  is '平台分配的短信发送密码';
+comment on column T_CCN_AC_USER.tokenkey
+  is '加密TOKENKEY参数';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_CCN_AC_USER
+  add constraint T_CCN_AC_USER_KEY primary key (ID, USERID, FACTORYID, OID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+-- Create table
+create table T_CCN_AC_QUERYIP
+(
+  aid         NUMBER,
+  vip         VARCHAR2(100),
+  createdate  DATE default sysdate,
+  description VARCHAR2(200),
+  flag        VARCHAR2(2) default 1,
+  type        CHAR(1) default 1
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_CCN_AC_QUERYIP
+  is '查询帐号IP授权表';
+-- Add comments to the columns 
+comment on column T_CCN_AC_QUERYIP.vip
+  is '企业服务器IP';
+comment on column T_CCN_AC_QUERYIP.createdate
+  is '创建时间';
+comment on column T_CCN_AC_QUERYIP.description
+  is '描述';
+comment on column T_CCN_AC_QUERYIP.flag
+  is '使用状态(0失效,1有效)
+';
+
+
+
+
+
+
+-- Create table
+create table T_MOBILE_ONLINE_SEND
+(
+  facid      VARCHAR2(6) not null,
+  mobile     VARCHAR2(11) not null,
+  orderid    VARCHAR2(100) not null,
+  statecode  VARCHAR2(20),
+  citycode   VARCHAR2(20),
+  statename  VARCHAR2(20),
+  cityname   VARCHAR2(20),
+  cardid     VARCHAR2(10),
+  cardnum    VARCHAR2(10),
+  runnum     NUMBER default 0,
+  rundate    DATE,
+  createdate DATE default sysdate,
+  resultid   VARCHAR2(10),
+  state      CHAR(1) default 0,
+  billvalue  CHAR(1) default 0,
+  notes      VARCHAR2(4000),
+  cardno     VARCHAR2(100),
+  cardpws    VARCHAR2(100),
+  expiretime VARCHAR2(20),
+  sendnum    NUMBER default 0,
+  orderids   VARCHAR2(400)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_MOBILE_ONLINE_SEND.mobile
+  is '手机号';
+comment on column T_MOBILE_ONLINE_SEND.orderid
+  is '订单号=16位数码';
+comment on column T_MOBILE_ONLINE_SEND.cardnum
+  is '奖金金额';
+comment on column T_MOBILE_ONLINE_SEND.runnum
+  is '是否已经充值 0：否；1：是；';
+comment on column T_MOBILE_ONLINE_SEND.rundate
+  is '充值日期';
+comment on column T_MOBILE_ONLINE_SEND.notes
+  is '短信内容';
+
+
+
+
+-- Create table
+create table T_SMS_INTL_SEND
+(
+  send_id       NVARCHAR2(50) not null,
+  mt_id         NVARCHAR2(50),
+  recv_id       NVARCHAR2(50),
+  spnumber      NVARCHAR2(20),
+  service_code  NVARCHAR2(20),
+  dest_msisdn   NVARCHAR2(20) not null,
+  message       NVARCHAR2(500) not null,
+  flag          CHAR(1) default 0 not null,
+  last_flag     CHAR(1),
+  proc_number   NUMBER default 0,
+  error_code    NVARCHAR2(50),
+  send_date     DATE,
+  statusreport  NVARCHAR2(50),
+  submit_date   DATE,
+  done_date     DATE,
+  create_date   DATE default sysdate not null,
+  cc            NVARCHAR2(10) not null,
+  codec         NVARCHAR2(10),
+  factoryid     NVARCHAR2(10),
+  business_type CHAR(1) default 0
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_SMS_INTL_SEND.send_id
+  is '发送ID，自动生成';
+comment on column T_SMS_INTL_SEND.mt_id
+  is 'MTID，运营商返回';
+comment on column T_SMS_INTL_SEND.recv_id
+  is '接收ID，关联上行表';
+comment on column T_SMS_INTL_SEND.dest_msisdn
+  is '手机号码';
+comment on column T_SMS_INTL_SEND.flag
+  is '默认为0-未下发';
+comment on column T_SMS_INTL_SEND.proc_number
+  is '处理次数';
+comment on column T_SMS_INTL_SEND.cc
+  is '国家代码： 中国-86。必须填，否则无法下发';
+comment on column T_SMS_INTL_SEND.codec
+  is '内容编码： 8，包含中文内容必须用8 ';
+comment on column T_SMS_INTL_SEND.business_type
+  is '业务类型。 默认为0，单边下行为1';
+-- Create/Recreate indexes 
+create index INDEX_MOBILE_S on T_SMS_INTL_SEND (DEST_MSISDN)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index INDEX_MTID on T_SMS_INTL_SEND (MT_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index INDEX_REID on T_SMS_INTL_SEND (RECV_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index INDEX_SENDID on T_SMS_INTL_SEND (SEND_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+
+
+-- Create table
+create table T_SGM_VERIFYCODE
+(
+  userid      VARCHAR2(50),
+  mobile      VARCHAR2(20),
+  ip          VARCHAR2(16),
+  verifcode   VARCHAR2(6),
+  createtime  DATE default sysdate,
+  invalidtime DATE,
+  verifydate  DATE,
+  facid       VARCHAR2(10),
+  flag        CHAR(1) default 0,
+  source      CHAR(1) default 1
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 16K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table 
+comment on table T_SGM_VERIFYCODE
+  is '手机有效性验证码表';
+-- Add comments to the columns 
+comment on column T_SGM_VERIFYCODE.userid
+  is '会员帐号';
+comment on column T_SGM_VERIFYCODE.mobile
+  is '会员手机号';
+comment on column T_SGM_VERIFYCODE.ip
+  is '会员ip';
+comment on column T_SGM_VERIFYCODE.verifcode
+  is '随机验证码(大写字母与数字组合)
+';
+comment on column T_SGM_VERIFYCODE.createtime
+  is '创建时间
+';
+comment on column T_SGM_VERIFYCODE.invalidtime
+  is '失效时间(暂时不用)
+';
+comment on column T_SGM_VERIFYCODE.verifydate
+  is '验证时间
+';
+comment on column T_SGM_VERIFYCODE.facid
+  is '厂家编号
+';
+comment on column T_SGM_VERIFYCODE.flag
+  is '使用状态(0未使用,1已使用,2作废,3过期)
+';
+comment on column T_SGM_VERIFYCODE.source
+  is '0:CRM 1:SGM';
+
+
+
+
+
